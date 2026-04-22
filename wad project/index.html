@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpportunityOS</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- BoxIcons for icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <!-- Ambient Interactive Background -->
+  <div class="ambient-bg">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+    <div class="ambient-orb ambient-orb-3"></div>
+  </div>
+
+  <!-- Splash Screen -->
+  <div id="intro-overlay">
+    <div class="splash-logo">
+      <span class="splash-o">O</span>
+      <span class="splash-text">pportunityOS</span>
+    </div>
+    <p class="splash-tagline">Your career, unlocked</p>
+    <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+  </div>
+
+  <!-- Auth Container -->
+  <div id="auth-container" class="hidden">
+    <!-- Left branding panel -->
+    <div class="auth-left">
+      <div class="auth-brand-logo">
+        <span class="auth-brand-o">O</span>pportunityOS
+      </div>
+      <h1 class="auth-headline">Find your next big<br><span>opportunity.</span></h1>
+      <p class="auth-sub">Internships, hackathons, scholarships — all in one place, personalized just for you.</p>
+      <div class="auth-features">
+        <div class="auth-feature"><i class='bx bx-brain'></i> AI-powered personalized recommendations</div>
+        <div class="auth-feature"><i class='bx bx-bell'></i> Deadline alerts so you never miss out</div>
+        <div class="auth-feature"><i class='bx bx-search-alt'></i> 500+ opportunities across all domains</div>
+        <div class="auth-feature"><i class='bx bx-trophy'></i> Track applications in one dashboard</div>
+      </div>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="auth-right">
+      <div class="auth-card">
+        <div class="auth-card-logo">
+          <span class="auth-card-o">O</span>pportunityOS
+        </div>
+        <h2 id="auth-title">Welcome back</h2>
+        <p id="auth-subtitle">Login to find your next opportunity.</p>
+        <form class="auth-form" id="auth-form">
+          <div class="input-group hidden" id="name-group">
+            <i class='bx bx-user'></i>
+            <input type="text" id="name-input" placeholder="Full Name" />
+          </div>
+          <div class="input-group">
+            <i class='bx bx-envelope'></i>
+            <input type="email" placeholder="Student Email" required autocomplete="off" />
+          </div>
+          <div class="input-group">
+            <i class='bx bx-lock-alt'></i>
+            <input type="password" placeholder="Password" required autocomplete="new-password" />
+          </div>
+          <button type="submit" class="auth-btn" id="auth-submit-btn">Login</button>
+        </form>
+        <div class="auth-toggle">
+          <span id="auth-toggle-text">Don't have an account?</span>
+          <a href="#" id="auth-toggle-link">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App Container -->
+  <div id="app" class="hidden">
+    <!-- Sidebar overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-o-small">O</span>pportunity<span style="color:var(--text-main)">OS</span>
+      </div>
+
+      <div class="sidebar-menu-wrapper">
+        <div class="nav-section">
+          <h4 class="nav-heading">DISCOVER</h4>
+          <nav class="nav-menu">
+            <a href="#" class="nav-link active"><i class='bx bx-home-alt'></i> Home</a>
+            <a href="#" class="nav-link"><i class='bx bx-trophy'></i> Competitions <span
+                class="nav-badge badge-new">New</span></a>
+            <a href="#" class="nav-link"><i class='bx bx-code-block'></i> Hackathons <span
+                class="nav-badge">48</span></a>
+            <a href="#" class="nav-link"><i class='bx bx-briefcase-alt-2'></i> Internships <span
+                class="nav-badge badge-green">230</span></a>
+            <a href="#" class="nav-link"><i class='bx bx-building'></i> Jobs</a>
+            <a href="#" class="nav-link"><i class='bx bx-book-open'></i> Scholarships</a>
+            <a href="#" class="nav-link"><i class='bx bx-calendar-event'></i> Workshops <span
+                class="nav-badge">12</span></a>
+          </nav>
+        </div>
+
+        <div class="nav-section">
+          <h4 class="nav-heading">MY SPACE</h4>
+          <nav class="nav-menu">
+            <a href="#" class="nav-link"><i class='bx bx-grid-alt'></i> Dashboard</a>
+            <a href="#" class="nav-link"><i class='bx bx-bookmark'></i> Saved <span class="nav-badge">14</span></a>
+            <a href="#" class="nav-link"><i class='bx bx-paper-plane'></i> Applied <span
+                class="nav-badge badge-green">5</span></a>
+            <a href="#" class="nav-link"><i class='bx bx-bell'></i> Alerts <span
+                class="nav-badge badge-red">3</span></a>
+          </nav>
+        </div>
+
+        <div class="nav-section">
+          <h4 class="nav-heading">RESOURCES</h4>
+          <nav class="nav-menu">
+            <a href="#" class="nav-link"><i class='bx bx-code-curly'></i> Practice</a>
+            <a href="#" class="nav-link"><i class='bx bx-play-circle'></i> Courses</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <a href="#" class="nav-link" id="profile-nav-link" onclick="openProfileModal();return false;"><i class='bx bx-user'></i> Profile</a>
+        <a href="#" class="nav-link"><i class='bx bx-cog'></i> Settings</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <button class="hamburger" id="hamburger" aria-label="Menu"><i class='bx bx-menu'></i></button>
+          <div class="search-bar">
+          <i class='bx bx-search'></i>
+          <input type="text" placeholder="Search opportunities..." />
+          </div>
+        </div>
+        <div class="user-actions">
+          <button id="theme-toggle" class="theme-toggle" title="Toggle Theme">
+            <i class='bx bx-sun'></i>
+          </button>
+          <button class="notification-btn">
+            <i class='bx bx-bell'></i>
+            <span class="badge">3</span>
+          </button>
+          <div class="user-profile">
+            <img src="https://ui-avatars.com/api/?name=Student+User&background=8b5cf6&color=fff" alt="User Avatar"
+              class="avatar" />
+            <div class="user-info">
+              <span class="user-name">Alex M.</span>
+              <span class="user-role">CS Student</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard Content -->
+      <div class="dashboard-scroll">
+        <!-- Hero Section -->
+        <section class="hero-section">
+          <div class="hero-text">
+            <h2>Welcome back, Alex! 👋</h2>
+            <p>You have 3 upcoming deadlines and 12 new matching opportunities today.</p>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-card">
+              <i class='bx bx-bookmark-heart'></i>
+              <div class="stat-info">
+                <h3>14</h3>
+                <p>Saved</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <i class='bx bx-paper-plane'></i>
+              <div class="stat-info">
+                <h3>5</h3>
+                <p>Applied</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Trending & Filters (Unstop Feature) -->
+        <div class="discovery-filters">
+          <div class="trending-tags">
+            <span class="tag-label"><i class='bx bxs-hot' style="color: #f59e0b;"></i> Trending:</span>
+            <a href="#" class="chip">#AI/ML</a>
+            <a href="#" class="chip">#WebDev</a>
+            <a href="#" class="chip">#DataScience</a>
+            <a href="#" class="chip">#OpenSource</a>
+            <a href="#" class="chip">#Blockchain</a>
+            <a href="#" class="chip">#Cloud</a>
+            <a href="#" class="chip">#Design</a>
+          </div>
+
+          <div class="filter-tabs">
+            <button class="filter-tab active">All</button>
+            <button class="filter-tab">Internships</button>
+            <button class="filter-tab">Hackathons</button>
+            <button class="filter-tab">Scholarships</button>
+            <button class="filter-tab">Competitions</button>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Recommended Carousel -->
+          <section class="recommended-section">
+            <div class="section-header">
+              <h3>Recommended for You</h3>
+              <a href="#" class="see-all">See All</a>
+            </div>
+            <div class="cards-container" id="recommendations-container">
+              <!-- Cards dynamically injected via JS -->
+            </div>
+          </section>
+
+          <!-- Upcoming Deadlines -->
+          <section class="deadlines-section">
+            <div class="section-header">
+              <h3>Upcoming Deadlines</h3>
+            </div>
+            <div class="deadlines-list" id="deadlines-container">
+              <!-- Deadlines dynamically injected via JS -->
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- AI Chatbot Floating Button & Window -->
+
+    
+
+    <div class="chat-window hidden" id="chat-window">
+      <div class="chat-header">
+        <h3><i class='bx bx-bot'></i> AI Assistant</h3>
+        <button class="close-chat" id="close-chat"><i class='bx bx-x'></i></button>
+      </div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="message msg-ai">Hi Alex! 👋 I'm your Opportunity AI. Are you looking for internships or hackathons
+          today?</div>
+      </div>
+      <form class="chat-input" id="chat-form">
+        <input type="text" id="chat-input-field" placeholder="Ask anything..." autocomplete="off">
+        <button type="submit"><i class='bx bxs-send'></i></button>
+      </form>
+    </div>
+
+    <div class="ai-fab" id="chatbot-fab">
+      <i class='bx bx-bot'></i>
+    </div>
+
+    <!-- Details Modal -->
+    <div id="content-modal" class="content-modal hidden" onclick="handleModalBackdropClick(event)">
+      <div class="modal-card">
+        <button class="close-modal" aria-label="Close" onclick="document.getElementById('content-modal').classList.add('hidden')"><i class='bx bx-x'></i></button>
+        <img id="modal-banner" src="" alt="Banner" class="modal-banner">
+        <div class="modal-scroll-body">
+          <div class="modal-body">
+            <div class="modal-type-badge" id="modal-type-badge"></div>
+            <h2 id="modal-title">Title</h2>
+            <p class="modal-company" id="modal-company"></p>
+
+            <!-- Meta info row -->
+            <div class="modal-meta-row" id="modal-meta-row"></div>
+
+            <!-- Tags -->
+            <div class="modal-tags" id="modal-tags"></div>
+
+            <p id="modal-description" style="color:var(--text-muted); line-height:1.7; margin: 16px 0;"></p>
+
+            <div class="modal-why-box">
+              <h4><i class='bx bx-bulb'></i> Why you should apply</h4>
+              <p id="modal-why-apply"></p>
+            </div>
+
+            <div class="modal-actions">
+              <button class="apply-btn modal-apply">Apply Now <i class='bx bx-right-arrow-alt'></i></button>
+              <button class="save-btn modal-save"><i class='bx bx-bookmark'></i> Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <script type="module" src="./main.js?v=2"></script>
+</body>
+
+</html>
