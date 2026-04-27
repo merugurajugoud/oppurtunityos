@@ -1464,15 +1464,20 @@ const MOCK_OPPORTUNITIES = [
 ];
 
 router.get("/", (req, res) => {
-  const typeQuery = req.query.type;
+  const typeQuery   = req.query.type;
   const searchQuery = req.query.search?.toLowerCase() || "";
-  const skills = req.query.skills ? req.query.skills.split(",").map(s => s.toLowerCase().trim()) : [];
-  const interests = req.query.interests ? req.query.interests.split(",").map(s => s.toLowerCase().trim()) : [];
+  const skills      = req.query.skills    ? req.query.skills.split(",").map(s => s.toLowerCase().trim())    : [];
+  const interests   = req.query.interests ? req.query.interests.split(",").map(s => s.toLowerCase().trim()) : [];
 
-  let results = [...MOCK_OPPORTUNITIES];
+  let results = [...MOCK_OPPORTUNITIES].map(item => ({ ...item, banner: null })); // strip banners — use gradients
 
   if (typeQuery && typeQuery !== "All") {
     results = results.filter(item => item.type.toLowerCase() === typeQuery.toLowerCase());
+  }
+
+  const statusQuery = req.query.status;
+  if (statusQuery && statusQuery !== "all") {
+    results = results.filter(item => item.status === statusQuery);
   }
 
   if (searchQuery) {
@@ -1490,11 +1495,18 @@ router.get("/", (req, res) => {
         ...(item.tags || []).map(t => t.toLowerCase()),
         item.type.toLowerCase(),
         item.title.toLowerCase(),
+        item.company.toLowerCase(),
       ];
-      const matchCount = userKeywords.filter(k => itemKeywords.some(ik => ik.includes(k))).length;
-      const score = Math.min(99, 70 + Math.round((matchCount / Math.max(userKeywords.length, 1)) * 29));
+      // Count how many user keywords match item keywords
+      const matchCount = userKeywords.filter(k =>
+        itemKeywords.some(ik => ik.includes(k) || k.includes(ik))
+      ).length;
+      const matchRatio = matchCount / Math.max(userKeywords.length, 1);
+      // Score: 70 base + up to 29 bonus = max 99%
+      const score = Math.min(99, Math.round(70 + matchRatio * 29));
       return { ...item, matchScore: score + "%" };
     });
+    // Sort by score descending — highest match first
     results.sort((a, b) => parseInt(b.matchScore) - parseInt(a.matchScore));
   }
 

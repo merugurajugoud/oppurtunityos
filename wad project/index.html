@@ -95,44 +95,36 @@
         <div class="nav-section">
           <h4 class="nav-heading">DISCOVER</h4>
           <nav class="nav-menu">
-            <a href="#" class="nav-link active"><i class='bx bx-home-alt'></i> Home</a>
-            <a href="#" class="nav-link"><i class='bx bx-trophy'></i> Competitions <span
-                class="nav-badge badge-new">New</span></a>
-            <a href="#" class="nav-link"><i class='bx bx-code-block'></i> Hackathons <span
-                class="nav-badge">48</span></a>
-            <a href="#" class="nav-link"><i class='bx bx-briefcase-alt-2'></i> Internships <span
-                class="nav-badge badge-green">230</span></a>
-            <a href="#" class="nav-link"><i class='bx bx-building'></i> Jobs</a>
-            <a href="#" class="nav-link"><i class='bx bx-book-open'></i> Scholarships</a>
-            <a href="#" class="nav-link"><i class='bx bx-calendar-event'></i> Workshops <span
-                class="nav-badge">12</span></a>
+            <a href="#" class="nav-link active" onclick="handleNavClick(this,'All');return false;"><i class='bx bx-home-alt'></i> Home</a>
+            <a href="#" class="nav-link" onclick="handleNavClick(this,'Competitions');return false;"><i class='bx bx-trophy'></i> Competitions <span class="nav-badge badge-new" id="badge-competitions">30</span></a>
+            <a href="#" class="nav-link" onclick="handleNavClick(this,'Hackathon');return false;"><i class='bx bx-code-block'></i> Hackathons <span class="nav-badge" id="badge-hackathons">30</span></a>
+            <a href="#" class="nav-link" onclick="handleNavClick(this,'Internship');return false;"><i class='bx bx-briefcase-alt-2'></i> Internships <span class="nav-badge badge-green" id="badge-internships">30</span></a>
+            <a href="#" class="nav-link" onclick="handleNavClick(this,'Scholarship');return false;"><i class='bx bx-book-open'></i> Scholarships <span class="nav-badge" id="badge-scholarships">30</span></a>
           </nav>
         </div>
 
         <div class="nav-section">
           <h4 class="nav-heading">MY SPACE</h4>
           <nav class="nav-menu">
-            <a href="#" class="nav-link"><i class='bx bx-grid-alt'></i> Dashboard</a>
-            <a href="#" class="nav-link"><i class='bx bx-bookmark'></i> Saved <span class="nav-badge">14</span></a>
-            <a href="#" class="nav-link"><i class='bx bx-paper-plane'></i> Applied <span
-                class="nav-badge badge-green">5</span></a>
-            <a href="#" class="nav-link"><i class='bx bx-bell'></i> Alerts <span
-                class="nav-badge badge-red">3</span></a>
+            <a href="#" class="nav-link" id="nav-dashboard" onclick="window.showDashboard && window.showDashboard();return false;"><i class='bx bx-grid-alt'></i> Dashboard</a>
+            <a href="#" class="nav-link" id="nav-saved" onclick="window.showSaved && window.showSaved();return false;"><i class='bx bx-bookmark'></i> Saved <span class="nav-badge" id="badge-saved">0</span></a>
+            <a href="#" class="nav-link" id="nav-applied" onclick="window.showApplied && window.showApplied();return false;"><i class='bx bx-paper-plane'></i> Applied <span class="nav-badge badge-green" id="badge-applied">0</span></a>
+            <a href="#" class="nav-link" id="nav-alerts" onclick="window.showAlerts && window.showAlerts();return false;"><i class='bx bx-bell'></i> Alerts <span class="nav-badge badge-red" id="badge-alerts">3</span></a>
           </nav>
         </div>
 
         <div class="nav-section">
           <h4 class="nav-heading">RESOURCES</h4>
           <nav class="nav-menu">
-            <a href="#" class="nav-link"><i class='bx bx-code-curly'></i> Practice</a>
-            <a href="#" class="nav-link"><i class='bx bx-play-circle'></i> Courses</a>
+            <a href="#" class="nav-link" onclick="openPractice();return false;"><i class='bx bx-code-curly'></i> Practice</a>
+            <a href="#" class="nav-link" onclick="openCourses();return false;"><i class='bx bx-play-circle'></i> Courses</a>
           </nav>
         </div>
       </div>
 
       <div class="sidebar-bottom">
         <a href="#" class="nav-link" id="profile-nav-link" onclick="openProfileModal();return false;"><i class='bx bx-user'></i> Profile</a>
-        <a href="#" class="nav-link"><i class='bx bx-cog'></i> Settings</a>
+        <a href="#" class="nav-link" onclick="openSettingsModal();return false;"><i class='bx bx-cog'></i> Settings</a>
       </div>
     </aside>
 
@@ -151,11 +143,11 @@
           <button id="theme-toggle" class="theme-toggle" title="Toggle Theme">
             <i class='bx bx-sun'></i>
           </button>
-          <button class="notification-btn">
+          <button class="notification-btn" id="notif-btn" style="position:relative;background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:1.4rem;width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;">
             <i class='bx bx-bell'></i>
-            <span class="badge">3</span>
+            <span id="notif-badge" style="position:absolute;top:4px;right:4px;background:#e50914;color:#fff;font-size:0.65rem;font-weight:800;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;">3</span>
           </button>
-          <div class="user-profile">
+          <div class="user-profile" id="topbar-profile" onclick="openProfileModal()">
             <img src="https://ui-avatars.com/api/?name=Student+User&background=8b5cf6&color=fff" alt="User Avatar"
               class="avatar" />
             <div class="user-info">
@@ -192,26 +184,37 @@
           </div>
         </section>
 
-        <!-- Trending & Filters (Unstop Feature) -->
+        <!-- Trending & Filters -->
         <div class="discovery-filters">
-          <div class="trending-tags">
-            <span class="tag-label"><i class='bx bxs-hot' style="color: #f59e0b;"></i> Trending:</span>
-            <a href="#" class="chip">#AI/ML</a>
-            <a href="#" class="chip">#WebDev</a>
-            <a href="#" class="chip">#DataScience</a>
-            <a href="#" class="chip">#OpenSource</a>
-            <a href="#" class="chip">#Blockchain</a>
-            <a href="#" class="chip">#Cloud</a>
-            <a href="#" class="chip">#Design</a>
+
+          <!-- Category tabs -->
+          <div class="filter-tabs-row" id="filter-tabs-row">
+            <button class="filter-tab active" data-type="All" onclick="handleFilterClick(this)">All</button>
+            <button class="filter-tab" data-type="Internship" onclick="handleFilterClick(this)">💼 Internships</button>
+            <button class="filter-tab" data-type="Hackathon" onclick="handleFilterClick(this)">⚡ Hackathons</button>
+            <button class="filter-tab" data-type="Scholarship" onclick="handleFilterClick(this)">🎓 Scholarships</button>
+            <button class="filter-tab" data-type="Competitions" onclick="handleFilterClick(this)">🏆 Competitions</button>
           </div>
 
-          <div class="filter-tabs">
-            <button class="filter-tab active">All</button>
-            <button class="filter-tab">Internships</button>
-            <button class="filter-tab">Hackathons</button>
-            <button class="filter-tab">Scholarships</button>
-            <button class="filter-tab">Competitions</button>
+          <!-- Status sub-tabs — always visible -->
+          <div class="status-tabs" id="status-tabs">
+            <button class="status-tab active" data-status="Ongoing" onclick="handleStatusClick(this)">🟢 Live Now</button>
+            <button class="status-tab" data-status="Upcoming" onclick="handleStatusClick(this)">🔵 Upcoming</button>
+            <button class="status-tab" data-status="Closed" onclick="handleStatusClick(this)">⚫ Closed</button>
           </div>
+
+          <!-- Trending tags -->
+          <div class="trending-tags" id="trending-tags">
+            <span class="tag-label"><i class='bx bxs-hot' style="color:#f59e0b;"></i> Trending:</span>
+            <a href="#" class="chip" data-search="AI/ML">#AI/ML</a>
+            <a href="#" class="chip" data-search="WebDev">#WebDev</a>
+            <a href="#" class="chip" data-search="DataScience">#DataScience</a>
+            <a href="#" class="chip" data-search="OpenSource">#OpenSource</a>
+            <a href="#" class="chip" data-search="Blockchain">#Blockchain</a>
+            <a href="#" class="chip" data-search="Cloud">#Cloud</a>
+            <a href="#" class="chip" data-search="Design">#Design</a>
+          </div>
+
         </div>
 
         <div class="dashboard-grid">
@@ -249,8 +252,7 @@
         <button class="close-chat" id="close-chat"><i class='bx bx-x'></i></button>
       </div>
       <div class="chat-messages" id="chat-messages">
-        <div class="message msg-ai">Hi Alex! 👋 I'm your Opportunity AI. Are you looking for internships or hackathons
-          today?</div>
+        <div class="message msg-ai">Hey! 👋 I'm your OpportunityOS AI. I'll help you find the best opportunities. Shall I ask a few quick questions to personalize your feed? (yes/no)</div>
       </div>
       <form class="chat-input" id="chat-form">
         <input type="text" id="chat-input-field" placeholder="Ask anything..." autocomplete="off">
@@ -298,7 +300,631 @@
 
   
 
-  <script type="module" src="./main.js?v=2"></script>
-</body>
+  <script type="module" src="./main.js?v=3"></script>
+  <script>
+    // Notification bell — DOM-based, no innerHTML single quotes
+    document.addEventListener("DOMContentLoaded", function() {
+      var btn = document.getElementById("notif-btn");
+      if (!btn) return;
+      btn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        var existing = document.getElementById("notif-panel");
+        if (existing) { existing.remove(); return; }
+        var notifs = [
+          { icon:"bx-time-five", color:"#f87171", title:"Google SWE Intern deadline in 2 days!", time:"Just now", dot:true },
+          { icon:"bx-trophy",    color:"#fbbf24", title:"New: ETHIndia 2025 Hackathon is live",  time:"1 hour ago", dot:true },
+          { icon:"bx-bookmark",  color:"#a78bfa", title:"Saved opportunity closes this week",    time:"3 hours ago", dot:true },
+          { icon:"bx-briefcase", color:"#60a5fa", title:"Netflix Frontend Intern — Apply now",   time:"5 hours ago", dot:false },
+          { icon:"bx-bell",      color:"#34d399", title:"Profile updated — recommendations refreshed", time:"Yesterday", dot:false }
+        ];
+        var panel = document.createElement("div");
+        panel.id = "notif-panel";
+        panel.style.position = "fixed";
+        panel.style.top = "72px";
+        panel.style.right = "1.2rem";
+        panel.style.width = "330px";
+        panel.style.background = "#1a1a2e";
+        panel.style.border = "1px solid rgba(255,255,255,0.12)";
+        panel.style.borderRadius = "16px";
+        panel.style.boxShadow = "0 20px 50px rgba(0,0,0,0.6)";
+        panel.style.zIndex = "99999";
+        panel.style.overflow = "hidden";
+        // Header
+        var hdr = document.createElement("div");
+        hdr.style.cssText = "padding:1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;";
+        var hTitle = document.createElement("span");
+        hTitle.style.cssText = "font-weight:700;font-size:0.95rem;color:#f0f0f5;";
+        hTitle.textContent = "Notifications";
+        var hBadge = document.createElement("span");
+        hBadge.style.cssText = "font-size:0.72rem;background:#8b5cf6;color:#fff;padding:0.2rem 0.6rem;border-radius:99px;font-weight:600;";
+        hBadge.textContent = "3 new";
+        hdr.appendChild(hTitle); hdr.appendChild(hBadge);
+        panel.appendChild(hdr);
+        // Items
+        notifs.forEach(function(n) {
+          var item = document.createElement("div");
+          item.style.cssText = "padding:0.85rem 1.2rem;display:flex;gap:0.8rem;align-items:flex-start;border-bottom:1px solid rgba(255,255,255,0.06);cursor:pointer;";
+          item.onmouseover = function() { this.style.background = "rgba(255,255,255,0.05)"; };
+          item.onmouseout  = function() { this.style.background = ""; };
+          var iconBox = document.createElement("div");
+          iconBox.style.cssText = "width:36px;height:36px;border-radius:10px;background:rgba(139,92,246,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;";
+          var ic = document.createElement("i");
+          ic.className = "bx " + n.icon;
+          ic.style.cssText = "color:" + n.color + ";font-size:1.1rem;";
+          iconBox.appendChild(ic);
+          if (n.dot) {
+            var dot = document.createElement("span");
+            dot.style.cssText = "position:absolute;top:2px;right:2px;width:7px;height:7px;background:#e50914;border-radius:50%;";
+            iconBox.appendChild(dot);
+          }
+          var txt = document.createElement("div");
+          txt.style.flex = "1";
+          var p = document.createElement("p");
+          p.style.cssText = "font-size:0.84rem;font-weight:500;margin-bottom:3px;color:#f0f0f5;line-height:1.3;";
+          p.textContent = n.title;
+          var t = document.createElement("span");
+          t.style.cssText = "font-size:0.73rem;color:#8b8b9e;";
+          t.textContent = n.time;
+          txt.appendChild(p); txt.appendChild(t);
+          item.appendChild(iconBox); item.appendChild(txt);
+          panel.appendChild(item);
+        });
+        // Footer
+        var ftr = document.createElement("div");
+        ftr.style.cssText = "padding:0.85rem;text-align:center;cursor:pointer;font-size:0.82rem;color:#8b5cf6;font-weight:600;";
+        ftr.textContent = "View all notifications";
+        ftr.onclick = function() {
+          panel.remove();
+          if (window._showAllNotifs) window._showAllNotifs();
+        };
+        panel.appendChild(ftr);
+        document.body.appendChild(panel);
+        var badge = document.getElementById("notif-badge");
+        if (badge) { badge.textContent = ""; badge.style.background = "transparent"; }
+        setTimeout(function() {
+          document.addEventListener("click", function h(ev) {
+            if (!panel.contains(ev.target) && ev.target.id !== "notif-btn") {
+              panel.remove(); document.removeEventListener("click", h);
+            }
+          });
+        }, 100);
+      });
+    });
+  </script>
+  <script>
+    function handleNavClick(link, type) {
+      // Update active state
+      document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
+      link.classList.add("active");
 
+      var hero    = document.querySelector(".hero-section");
+      var deadSec = document.querySelector(".deadlines-section");
+      var grid    = document.querySelector(".dashboard-grid");
+
+      if (type === "All") {
+        if (hero)    hero.style.display    = "flex";
+        if (deadSec) deadSec.style.display = "block";
+        if (grid)    grid.style.gridTemplateColumns = "1fr 320px";
+        document.getElementById("status-tabs").classList.add("hidden");
+      } else {
+        if (hero)    hero.style.display    = "none";
+        if (deadSec) deadSec.style.display = "none";
+        if (grid)    grid.style.gridTemplateColumns = "1fr";
+        document.getElementById("status-tabs").classList.remove("hidden");
+      }
+
+      // Sync filter tabs
+      document.querySelectorAll(".filter-tab").forEach(t => {
+        t.classList.remove("active");
+        if (t.dataset.type === type) t.classList.add("active");
+      });
+
+      // Reset to Live Now
+      document.querySelectorAll(".status-tab").forEach(s => s.classList.remove("active"));
+      var liveTab = document.querySelector(".status-tab[data-status='Ongoing']");
+      if (liveTab) liveTab.classList.add("active");
+
+      var status = type === "All" ? "all" : "Ongoing";
+      fetchAndDisplay(type, status);
+    }
+
+    function toggleNotifications(e) {
+      if (e) e.stopPropagation();
+      var existing = document.getElementById("notif-panel");
+      if (existing) { existing.remove(); return; }
+      // Delegate to DOMContentLoaded handler by simulating click on bell
+      var btn = document.getElementById("notif-btn");
+      if (btn) btn.click();
+    }
+
+    function openProfileModal() {
+      if (window._openProfileModal) window._openProfileModal();
+    }
+
+    function openSettingsModal() {
+      if (window._openSettingsModal) { window._openSettingsModal(); return; }
+      setTimeout(function() { if (window._openSettingsModal) window._openSettingsModal(); }, 800);
+    }
+
+    function openPractice() {
+      _openResourceModal("Practice", "Sharpen your coding skills", [
+        { icon:"bx-code-block", color:"#60a5fa", name:"LeetCode", desc:"Best platform for DSA and interview prep. Used by FAANG recruiters.", url:"https://leetcode.com", tag:"DSA" },
+        { icon:"bx-terminal",   color:"#a78bfa", name:"HackerRank", desc:"Coding challenges, certifications, and interview kits.", url:"https://hackerrank.com", tag:"Coding" },
+        { icon:"bx-trophy",     color:"#fbbf24", name:"Codeforces", desc:"Competitive programming contests. Improve your global rating.", url:"https://codeforces.com", tag:"Competitive" },
+        { icon:"bx-code-curly", color:"#34d399", name:"CodeChef", desc:"Monthly contests and practice problems for all levels.", url:"https://codechef.com", tag:"Competitive" },
+        { icon:"bx-git-branch", color:"#f87171", name:"GitHub",    desc:"Build your portfolio with open source contributions.", url:"https://github.com", tag:"Open Source" },
+        { icon:"bx-data",       color:"#fbbf24", name:"Kaggle",    desc:"Data science competitions and datasets. Great for ML skills.", url:"https://kaggle.com", tag:"ML/AI" },
+      ]);
+    }
+
+    function openCourses() {
+      _openResourceModal("Courses", "Learn new skills for free", [
+        { icon:"bx-play-circle", color:"#f87171", name:"CS50 by Harvard", desc:"World's most popular intro to CS. Free certificate on completion.", url:"https://cs50.harvard.edu", tag:"Free" },
+        { icon:"bx-play-circle", color:"#60a5fa", name:"Google ML Crash Course", desc:"Machine learning fundamentals by Google engineers. Free.", url:"https://developers.google.com/machine-learning/crash-course", tag:"AI/ML" },
+        { icon:"bx-play-circle", color:"#a78bfa", name:"The Odin Project", desc:"Full stack web development curriculum. 100% free and open source.", url:"https://www.theodinproject.com", tag:"Web Dev" },
+        { icon:"bx-play-circle", color:"#34d399", name:"freeCodeCamp", desc:"Learn to code for free. Earn certifications in web dev, data science.", url:"https://freecodecamp.org", tag:"Free" },
+        { icon:"bx-play-circle", color:"#fbbf24", name:"Coursera — Google Certificates", desc:"Industry-recognized certificates from Google. Financial aid available.", url:"https://coursera.org/google", tag:"Certificate" },
+        { icon:"bx-play-circle", color:"#f87171", name:"NPTEL", desc:"Free courses from IITs and IISc. Get certificates recognized by Indian companies.", url:"https://nptel.ac.in", tag:"India" },
+      ]);
+    }
+
+    function _openResourceModal(title, subtitle, resources) {
+      var existing = document.getElementById("resource-modal");
+      if (existing) existing.remove();
+      var modal = document.createElement("div");
+      modal.id = "resource-modal";
+      modal.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:3000;display:flex;justify-content:center;align-items:center;padding:1rem;";
+      var card = document.createElement("div");
+      card.style.cssText = "background:var(--glass);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:24px;width:100%;max-width:520px;max-height:88vh;overflow-y:auto;box-shadow:0 30px 70px rgba(0,0,0,0.5);padding:1.5rem;";
+      // Header
+      var hdr = document.createElement("div");
+      hdr.style.cssText = "display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;";
+      var hInfo = document.createElement("div");
+      var hTitle = document.createElement("h2"); hTitle.style.cssText = "font-size:1.4rem;font-weight:800;margin-bottom:3px;"; hTitle.textContent = title;
+      var hSub = document.createElement("p"); hSub.style.cssText = "font-size:0.83rem;color:var(--text-muted);"; hSub.textContent = subtitle;
+      hInfo.appendChild(hTitle); hInfo.appendChild(hSub);
+      var closeBtn = document.createElement("button");
+      closeBtn.textContent = "✕";
+      closeBtn.style.cssText = "background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);border-radius:50%;width:34px;height:34px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;";
+      closeBtn.onclick = function() { modal.remove(); };
+      hdr.appendChild(hInfo); hdr.appendChild(closeBtn);
+      card.appendChild(hdr);
+      // Resource items
+      var list = document.createElement("div");
+      list.style.cssText = "display:flex;flex-direction:column;gap:0.8rem;";
+      resources.forEach(function(r) {
+        var item = document.createElement("div");
+        item.style.cssText = "display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;cursor:pointer;transition:border-color 0.2s;";
+        item.onmouseover = function() { this.style.borderColor = "var(--purple)"; };
+        item.onmouseout  = function() { this.style.borderColor = "var(--border)"; };
+        item.onclick = function() { window.open(r.url, "_blank", "noopener,noreferrer"); };
+        var iconBox = document.createElement("div");
+        iconBox.style.cssText = "width:44px;height:44px;border-radius:12px;background:rgba(139,92,246,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;";
+        var ic = document.createElement("i"); ic.className = "bx " + r.icon; ic.style.cssText = "color:" + r.color + ";font-size:1.3rem;";
+        iconBox.appendChild(ic);
+        var info = document.createElement("div"); info.style.flex = "1";
+        var nameRow = document.createElement("div"); nameRow.style.cssText = "display:flex;align-items:center;gap:0.5rem;margin-bottom:3px;";
+        var nm = document.createElement("p"); nm.style.cssText = "font-weight:700;font-size:0.92rem;"; nm.textContent = r.name;
+        var tag = document.createElement("span"); tag.style.cssText = "font-size:0.68rem;background:rgba(139,92,246,0.12);color:#a78bfa;padding:0.15rem 0.55rem;border-radius:99px;font-weight:600;"; tag.textContent = r.tag;
+        nameRow.appendChild(nm); nameRow.appendChild(tag);
+        var desc = document.createElement("p"); desc.style.cssText = "font-size:0.78rem;color:var(--text-muted);line-height:1.4;"; desc.textContent = r.desc;
+        info.appendChild(nameRow); info.appendChild(desc);
+        var arrow = document.createElement("i"); arrow.className = "bx bx-right-arrow-alt"; arrow.style.cssText = "color:var(--text-muted);font-size:1.2rem;flex-shrink:0;";
+        item.appendChild(iconBox); item.appendChild(info); item.appendChild(arrow);
+        list.appendChild(item);
+      });
+      card.appendChild(list);
+      modal.appendChild(card);
+      document.body.appendChild(modal);
+      modal.addEventListener("click", function(e) { if (e.target === modal) modal.remove(); });
+    }
+
+    function showNotifications() {
+      var existing = document.getElementById("notif-panel");
+      if (existing) { existing.remove(); return; }
+      var notifs = [
+        { icon:"bx-time-five", color:"#f87171", title:"Google SWE Intern deadline in 2 days!", time:"Just now", dot:true },
+        { icon:"bx-trophy",    color:"#fbbf24", title:"New: ETHIndia 2025 Hackathon is live",  time:"1 hour ago", dot:true },
+        { icon:"bx-bookmark",  color:"#a78bfa", title:"Saved opportunity closes this week",    time:"3 hours ago", dot:true },
+        { icon:"bx-briefcase", color:"#60a5fa", title:"Netflix Frontend Intern — Apply now",   time:"5 hours ago", dot:false },
+        { icon:"bx-bell",      color:"#34d399", title:"Profile updated — recommendations refreshed", time:"Yesterday", dot:false }
+      ];
+      var panel = document.createElement("div");
+      panel.id = "notif-panel";
+      panel.style.position = "fixed";
+      panel.style.top = "72px";
+      panel.style.right = "1.2rem";
+      panel.style.width = "330px";
+      panel.style.background = "#1a1a2e";
+      panel.style.border = "1px solid rgba(255,255,255,0.12)";
+      panel.style.borderRadius = "16px";
+      panel.style.boxShadow = "0 20px 50px rgba(0,0,0,0.6)";
+      panel.style.zIndex = "99999";
+      panel.style.overflow = "hidden";
+
+      var header = document.createElement("div");
+      header.style.cssText = "padding:1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;";
+      var hSpan1 = document.createElement("span"); hSpan1.style.cssText = "font-weight:700;font-size:0.95rem;color:#f0f0f5;"; hSpan1.textContent = "Notifications";
+      var hSpan2 = document.createElement("span"); hSpan2.style.cssText = "font-size:0.72rem;background:#8b5cf6;color:#fff;padding:0.2rem 0.6rem;border-radius:99px;font-weight:600;"; hSpan2.textContent = "3 new";
+      header.appendChild(hSpan1); header.appendChild(hSpan2);
+      panel.appendChild(header);
+
+      notifs.forEach(function(n) {
+        var item = document.createElement("div");
+        item.style.cssText = "padding:0.85rem 1.2rem;display:flex;gap:0.8rem;align-items:flex-start;border-bottom:1px solid rgba(255,255,255,0.06);cursor:pointer;";
+        item.onmouseover = function() { this.style.background = "rgba(255,255,255,0.05)"; };
+        item.onmouseout  = function() { this.style.background = ""; };
+        var iconWrap = document.createElement("div");
+        iconWrap.style.cssText = "width:36px;height:36px;border-radius:10px;background:rgba(139,92,246,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;";
+        var ic = document.createElement("i"); ic.className = "bx " + n.icon; ic.style.cssText = "color:" + n.color + ";font-size:1.1rem;";
+        iconWrap.appendChild(ic);
+        if (n.dot) { var dot = document.createElement("span"); dot.style.cssText = "position:absolute;top:2px;right:2px;width:7px;height:7px;background:#e50914;border-radius:50%;"; iconWrap.appendChild(dot); }
+        var text = document.createElement("div");
+        text.style.flex = "1";
+        text.innerHTML = "<p style='font-size:0.84rem;font-weight:500;margin-bottom:3px;color:#f0f0f5;line-height:1.3;'>" + n.title + "</p><span style='font-size:0.73rem;color:#8b8b9e;'>" + n.time + "</span>";
+        item.appendChild(iconWrap);
+        item.appendChild(text);
+        panel.appendChild(item);
+      });
+
+      var footer = document.createElement("div");
+      footer.style.cssText = "padding:0.85rem;text-align:center;cursor:pointer;font-size:0.82rem;color:#8b5cf6;font-weight:600;";
+      footer.textContent = "View all notifications";
+      footer.onclick = function() {
+        panel.remove();
+        if (window._showAllNotifs) window._showAllNotifs();
+      };
+      panel.appendChild(footer);
+      document.body.appendChild(panel);
+
+      var badge = document.getElementById("notif-badge");
+      if (badge) { badge.textContent = ""; badge.style.background = "transparent"; }
+
+      setTimeout(function() {
+        document.addEventListener("click", function h(ev) {
+          if (!panel.contains(ev.target) && ev.target.id !== "notif-btn") {
+            panel.remove();
+            document.removeEventListener("click", h);
+          }
+        });
+      }, 100);
+    }
+
+    var _BASE = "http://localhost:5000/api";
+
+    async function fetchAndDisplay(type, status) {
+      var c = document.getElementById("recommendations-container");
+      if (!c) { console.error("No container found"); return; }
+      c.innerHTML = '<p style="color:#8b8b9e;padding:2rem;grid-column:1/-1;text-align:center;font-size:1rem;">⏳ Loading...</p>';
+
+      var params = "type=" + type;
+      if (status && status !== "all") params += "&status=" + status;
+      if (window._userProfile) {
+        if (window._userProfile.skills && window._userProfile.skills.length)
+          params += "&skills=" + window._userProfile.skills.join(",");
+        if (window._userProfile.interests && window._userProfile.interests.length)
+          params += "&interests=" + window._userProfile.interests.join(",");
+      }
+
+      console.log("fetchAndDisplay:", _BASE + "/opportunities?" + params);
+
+      try {
+        var res = await fetch(_BASE + "/opportunities?" + params);
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        var data = await res.json();
+        console.log("Got", data.length, "results");
+        window.opportunitiesData = data;
+
+        // Use main.js renderer if available
+        if (window.displayOpportunities) {
+          window.displayOpportunities(data);
+        } else {
+          _renderCardsInline(data, c);
+        }
+
+        // Update header
+        var h = document.querySelector(".recommended-section .section-header h3");
+        if (h) {
+          var tl = type==="All"?"All Opportunities":type==="Internship"?"Internships":type==="Hackathon"?"Hackathons":type==="Scholarship"?"Scholarships":"Competitions";
+          var sl = status==="Ongoing"?"Live Now":status==="Upcoming"?"Upcoming":status==="Closed"?"Closed":"";
+          h.textContent = type==="All" ? "Recommended for You" : tl + (sl?" — "+sl:"") + " ("+data.length+")";
+        }
+      } catch(e) {
+        console.error("fetchAndDisplay error:", e);
+        c.innerHTML = '<p style="color:#f87171;padding:2rem;grid-column:1/-1;text-align:center;">❌ Error: ' + e.message + '. Is backend running on port 5000?</p>';
+      }
+    }
+
+    function _renderCardsInline(data, container) {
+      container.innerHTML = "";
+      if (!data.length) {
+        container.innerHTML = '<p style="color:#8b8b9e;padding:2rem;grid-column:1/-1;text-align:center;">No opportunities found.</p>';
+        return;
+      }
+      var typeGrads = {
+        "Hackathon":    ["linear-gradient(135deg,#667eea,#764ba2)","linear-gradient(135deg,#f093fb,#f5576c)","linear-gradient(135deg,#4facfe,#00f2fe)","linear-gradient(135deg,#43e97b,#38f9d7)","linear-gradient(135deg,#fa709a,#fee140)","linear-gradient(135deg,#a18cd1,#fbc2eb)","linear-gradient(135deg,#6a11cb,#2575fc)","linear-gradient(135deg,#f7971e,#ffd200)","linear-gradient(135deg,#fc4a1a,#f7b733)","linear-gradient(135deg,#c94b4b,#4b134f)"],
+        "Internship":   ["linear-gradient(135deg,#0f2027,#2c5364)","linear-gradient(135deg,#141e30,#243b55)","linear-gradient(135deg,#1a1a2e,#16213e)","linear-gradient(135deg,#232526,#414345)","linear-gradient(135deg,#0d0d0d,#434343)","linear-gradient(135deg,#1f1c2c,#928dab)","linear-gradient(135deg,#2c3e50,#3498db)","linear-gradient(135deg,#16222a,#3a6186)","linear-gradient(135deg,#0f0c29,#302b63)","linear-gradient(135deg,#1a1a2e,#e94560)"],
+        "Scholarship":  ["linear-gradient(135deg,#11998e,#38ef7d)","linear-gradient(135deg,#56ab2f,#a8e063)","linear-gradient(135deg,#1d976c,#93f9b9)","linear-gradient(135deg,#134e5e,#71b280)","linear-gradient(135deg,#02aab0,#00cdac)","linear-gradient(135deg,#005c97,#363795)","linear-gradient(135deg,#1e3c72,#2a5298)","linear-gradient(135deg,#0575e6,#021b79)","linear-gradient(135deg,#4776e6,#8e54e9)","linear-gradient(135deg,#3a7bd5,#3a6073)"],
+        "Competitions": ["linear-gradient(135deg,#f7971e,#ffd200)","linear-gradient(135deg,#fc4a1a,#f7b733)","linear-gradient(135deg,#c94b4b,#4b134f)","linear-gradient(135deg,#eb5757,#000000)","linear-gradient(135deg,#e96c1e,#f7b733)","linear-gradient(135deg,#f953c6,#b91d73)","linear-gradient(135deg,#ff416c,#ff4b2b)","linear-gradient(135deg,#f5af19,#f12711)","linear-gradient(135deg,#d31027,#ea384d)","linear-gradient(135deg,#f7971e,#ffd200)"],
+      };
+      data.forEach(function(opp) {
+        var grads = typeGrads[opp.type] || typeGrads["Hackathon"];
+        var idHash = opp.id.split("").reduce(function(a,c){return a+c.charCodeAt(0);},0);
+        var grad = grads[idHash % grads.length];
+        var emoji = opp.type==="Hackathon"?"⚡":opp.type==="Internship"?"💼":opp.type==="Scholarship"?"🎓":"🏆";
+        var sColor = opp.status==="Ongoing"?"color:#34d399":opp.status==="Upcoming"?"color:#60a5fa":"color:#9ca3af";
+        var badgeCls = opp.type==="Hackathon"?"badge-hackathon":opp.type==="Scholarship"?"badge-scholarship":opp.type==="Competitions"?"badge-competitions":"badge-internship";
+        var tags = (opp.tags||[]).slice(0,3).map(function(t){return '<span class="opp-tag">#'+t+'</span>';}).join("");
+        var deadline = opp.deadline ? new Date(opp.deadline).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"}) : "";
+        var card = document.createElement("div");
+        card.className = "opp-card";
+        card.innerHTML =
+          '<div style="height:110px;overflow:hidden;flex-shrink:0;background:'+grad+';display:flex;align-items:center;justify-content:center;position:relative;">'+
+            '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;z-index:1;"><span style="font-size:2.8rem;line-height:1;">'+emoji+'</span>'+
+            '<span style="font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.8);letter-spacing:1px;text-transform:uppercase;">'+opp.type+'</span></div>'+
+            '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,0.25));"></div>'+
+          '</div>'+
+          '<div class="opp-card-inner">'+
+            '<div class="opp-card-top">'+
+              '<img src="'+(opp.logo||"https://ui-avatars.com/api/?name="+encodeURIComponent(opp.company)+"&background=8b5cf6&color=fff")+'" class="opp-logo" alt="'+opp.company+'"/>'+
+              '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">'+
+                '<span class="opp-badge '+badgeCls+'">'+opp.type+'</span>'+
+                (opp.status?'<span style="font-size:0.68rem;font-weight:700;padding:0.15rem 0.55rem;border-radius:99px;'+sColor+'">'+opp.status+'</span>':'')+
+              '</div>'+
+            '</div>'+
+            '<div class="opp-match"><i class="bx bx-check-shield"></i> '+(opp.matchScore||"80%")+' Match</div>'+
+            '<h4 class="opp-title">'+opp.title+'</h4>'+
+            '<p class="opp-company">'+opp.company+'</p>'+
+            '<div class="opp-tags">'+tags+'</div>'+
+            '<div class="opp-meta">'+
+              (opp.prize?'<span class="prize"><i class="bx bx-trophy"></i> '+opp.prize+'</span>':'')+
+              (deadline?'<span><i class="bx bx-calendar"></i> '+deadline+'</span>':'')+
+              (opp.mode?'<span><i class="bx bx-map-pin"></i> '+opp.mode+'</span>':'')+
+            '</div>'+
+            '<div class="opp-footer">'+
+              '<button class="apply-btn" onclick="window.handleApplyClick&&window.handleApplyClick(\''+opp.id+'\',\''+opp.applyUrl+'\')">Apply Now</button>'+
+              '<button class="view-btn" onclick="window.viewContent&&window.viewContent(\''+opp.id+'\')"><i class="bx bx-info-circle"></i> View</button>'+
+            '</div>'+
+          '</div>';
+        container.appendChild(card);
+      });
+    }
+          var idHash = opp.id.split("").reduce(function(a,c){return a+c.charCodeAt(0);},0);
+          var grad = grads[idHash % grads.length];
+          var emoji = opp.type==="Hackathon"?"⚡":opp.type==="Internship"?"💼":opp.type==="Scholarship"?"🎓":"🏆";
+          card.innerHTML =
+            '<div style="height:100px;overflow:hidden;flex-shrink:0;background:'+grad+';display:flex;align-items:center;justify-content:center;position:relative;">'+
+              '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;z-index:1;">'+
+                '<span style="font-size:2.8rem;line-height:1;">'+emoji+'</span>'+
+                '<span style="font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.8);letter-spacing:1px;text-transform:uppercase;">'+opp.type+'</span>'+
+              '</div>'+
+              '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,0.25));"></div>'+
+            '</div>'+
+            '<div class="opp-card-inner">'+
+              '<div style="display:flex;justify-content:space-between;margin-bottom:6px;">'+
+                '<span class="opp-badge badge-'+(opp.type==="Hackathon"?"hackathon":opp.type==="Scholarship"?"scholarship":opp.type==="Competitions"?"competitions":"internship")+'">'+opp.type+'</span>'+
+                '<span style="font-size:0.7rem;font-weight:700;'+sColor+'">'+opp.status+'</span>'+
+              '</div>'+
+              '<div class="opp-match"><i class="bx bx-check-shield"></i> '+(opp.matchScore||"95%")+' Match</div>'+
+              '<h4 class="opp-title">'+opp.title+'</h4>'+
+              '<p class="opp-company">'+opp.company+'</p>'+
+              (opp.deadline?'<div class="opp-meta"><span><i class="bx bx-calendar"></i> '+new Date(opp.deadline).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})+'</span>'+(opp.mode?'<span><i class="bx bx-map-pin"></i> '+opp.mode+'</span>':'')+'</div>':'')+
+              '<div class="opp-footer">'+
+                '<button class="apply-btn" onclick="window.open(\''+opp.applyUrl+'\',\'_blank\',\'noopener,noreferrer\')">Apply Now</button>'+
+                '<button class="view-btn" onclick="window.viewContent && window.viewContent(\''+opp.id+'\')"><i class="bx bx-info-circle"></i> View</button>'+
+              '</div>'+
+            '</div>';
+          c.appendChild(card);
+        });
+        var h = document.querySelector(".recommended-section .section-header h3");
+        if (h) { var tl=type==="All"?"All":type==="Internship"?"Internships":type==="Hackathon"?"Hackathons":type==="Scholarship"?"Scholarships":"Competitions"; h.textContent=tl+" — "+(status==="Ongoing"?"Live Now":status==="Upcoming"?"Upcoming":"Closed")+" ("+data.length+")"; }
+      } catch(e) { console.error("Fetch error:", e); }
+    }
+
+    function handleFilterClick(tab) {
+      document.querySelectorAll(".filter-tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      var type = tab.dataset.type || "All";
+      var hero    = document.querySelector(".hero-section");
+      var deadSec = document.querySelector(".deadlines-section");
+      var grid    = document.querySelector(".dashboard-grid");
+      if (type === "All") {
+        if (hero)    hero.style.display    = "flex";
+        if (deadSec) deadSec.style.display = "block";
+        if (grid)    grid.style.gridTemplateColumns = "1fr 320px";
+      } else {
+        if (hero)    hero.style.display    = "none";
+        if (deadSec) deadSec.style.display = "none";
+        if (grid)    grid.style.gridTemplateColumns = "1fr";
+      }
+      document.querySelectorAll(".status-tab").forEach(s => s.classList.remove("active"));
+      var liveTab = document.querySelector(".status-tab[data-status='Ongoing']");
+      if (liveTab) liveTab.classList.add("active");
+      fetchAndDisplay(type, type === "All" ? "all" : "Ongoing");
+    }
+
+    function handleStatusClick(tab) {
+      document.querySelectorAll(".status-tab").forEach(s => s.classList.remove("active"));
+      tab.classList.add("active");
+      var activeFilter = document.querySelector(".filter-tab.active");
+      var type = activeFilter ? (activeFilter.dataset.type || "All") : "All";
+      fetchAndDisplay(type, tab.dataset.status);
+    }
+
+    function showDashboard() {
+      var existing = document.getElementById("myspace-modal");
+      if (existing) existing.remove();
+      var userId = localStorage.getItem("userId");
+      var saved  = parseInt(document.getElementById("badge-saved")?.textContent  || "0");
+      var applied= parseInt(document.getElementById("badge-applied")?.textContent || "0");
+      _showMySpaceModal("Dashboard", `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;">
+          <div style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);border-radius:14px;padding:1.2rem;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:#a78bfa;">${saved}</div>
+            <div style="font-size:0.85rem;color:#8b8b9e;margin-top:4px;">Saved</div>
+          </div>
+          <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:14px;padding:1.2rem;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:#34d399;">${applied}</div>
+            <div style="font-size:0.85rem;color:#8b8b9e;margin-top:4px;">Applied</div>
+          </div>
+          <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);border-radius:14px;padding:1.2rem;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:#60a5fa;">3</div>
+            <div style="font-size:0.85rem;color:#8b8b9e;margin-top:4px;">Deadlines Soon</div>
+          </div>
+          <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);border-radius:14px;padding:1.2rem;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:#fbbf24;">12</div>
+            <div style="font-size:0.85rem;color:#8b8b9e;margin-top:4px;">New Matches</div>
+          </div>
+        </div>
+        <p style="font-size:0.85rem;color:#8b8b9e;text-align:center;">Keep applying! Your profile is getting stronger every day 🚀</p>
+      `);
+    }
+
+    async function showSaved() {
+      var userId = localStorage.getItem("userId");
+      if (!userId) { alert("Please login first"); return; }
+      _showMySpaceModal("Saved Opportunities", '<div style="text-align:center;padding:2rem;color:#8b8b9e;"><i class="bx bx-loader-alt bx-spin" style="font-size:2rem;"></i><p style="margin-top:0.5rem;">Loading...</p></div>');
+      try {
+        var res = await fetch(_BASE + "/applications/" + userId);
+        var apps = await res.json();
+        var saved = apps.filter(function(a){ return a.status === "saved"; });
+        var badge = document.getElementById("badge-saved");
+        if (badge) badge.textContent = saved.length;
+        var content = saved.length === 0
+          ? '<div style="text-align:center;padding:2rem;"><div style="font-size:3rem;margin-bottom:1rem;">🔖</div><p style="color:#8b8b9e;font-size:0.9rem;">No saved opportunities yet.<br>Click <strong>Save</strong> on any opportunity to track it here!</p></div>'
+          : '<div style="display:flex;flex-direction:column;gap:0;">' + saved.map(function(a,i){
+              var opp = (typeof a.opportunityId === "object" && a.opportunityId) ? a.opportunityId : {};
+              var title = opp.title || ("Saved Opportunity #" + (i+1));
+              var company = opp.company || "";
+              var type = opp.type || "Opportunity";
+              return '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.9rem 0;border-bottom:1px solid var(--border);">' +
+                '<div><p style="font-weight:600;font-size:0.9rem;margin-bottom:2px;">'+title+'</p><p style="font-size:0.78rem;color:#8b8b9e;">'+company+(type?' • '+type:'')+'</p></div>' +
+                '<span style="font-size:0.72rem;background:rgba(139,92,246,0.12);color:#a78bfa;padding:0.2rem 0.7rem;border-radius:99px;white-space:nowrap;">🔖 Saved</span>' +
+              '</div>';
+            }).join("") + '</div>';
+        document.querySelector("#myspace-modal .modal-body-content").innerHTML = content;
+      } catch(e) {
+        document.querySelector("#myspace-modal .modal-body-content").innerHTML = '<p style="color:#8b8b9e;text-align:center;padding:2rem;">Could not load saved items.</p>';
+      }
+    }
+
+    async function showApplied() {
+      var userId = localStorage.getItem("userId");
+      if (!userId) { alert("Please login first"); return; }
+      _showMySpaceModal("Applied Opportunities", '<div style="text-align:center;padding:2rem;color:#8b8b9e;"><i class="bx bx-loader-alt bx-spin" style="font-size:2rem;"></i><p style="margin-top:0.5rem;">Loading...</p></div>');
+      try {
+        var res = await fetch(_BASE + "/applications/" + userId);
+        var apps = await res.json();
+        var applied = apps.filter(function(a){ return a.status === "applied"; });
+        var badge = document.getElementById("badge-applied");
+        if (badge) badge.textContent = applied.length;
+        var content = applied.length === 0
+          ? '<div style="text-align:center;padding:2rem;"><div style="font-size:3rem;margin-bottom:1rem;">🚀</div><p style="color:#8b8b9e;font-size:0.9rem;">No applications yet.<br>Click <strong>Apply Now</strong> on any opportunity to track it here!</p></div>'
+          : '<div style="display:flex;flex-direction:column;gap:0;">' + applied.map(function(a,i){
+              var opp = (typeof a.opportunityId === "object" && a.opportunityId) ? a.opportunityId : {};
+              var title = opp.title || ("Application #" + (i+1));
+              var company = opp.company || "";
+              var type = opp.type || "Opportunity";
+              var date = a.createdAt ? new Date(a.createdAt).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"}) : "";
+              return '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.9rem 0;border-bottom:1px solid var(--border);">' +
+                '<div><p style="font-weight:600;font-size:0.9rem;margin-bottom:2px;">'+title+'</p><p style="font-size:0.78rem;color:#8b8b9e;">'+company+(type?' • '+type:'')+(date?' • '+date:'')+'</p></div>' +
+                '<span style="font-size:0.72rem;background:rgba(16,185,129,0.12);color:#34d399;padding:0.2rem 0.7rem;border-radius:99px;white-space:nowrap;">✅ Applied</span>' +
+              '</div>';
+            }).join("") + '</div>';
+        document.querySelector("#myspace-modal .modal-body-content").innerHTML = content;
+      } catch(e) {
+        document.querySelector("#myspace-modal .modal-body-content").innerHTML = '<p style="color:#8b8b9e;text-align:center;padding:2rem;">Could not load applications.</p>';
+      }
+    }
+
+    function showAlerts() {
+      _showMySpaceModal("Deadline Alerts", `
+        <div style="display:flex;flex-direction:column;gap:0.8rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.9rem 1rem;background:rgba(229,9,20,0.08);border:1px solid rgba(229,9,20,0.2);border-radius:12px;border-left:3px solid #e50914;">
+            <div><p style="font-weight:600;font-size:0.9rem;">Google SWE Intern</p><p style="font-size:0.78rem;color:#8b8b9e;">Google</p></div>
+            <span style="font-size:0.78rem;font-weight:700;color:#f87171;background:rgba(248,113,113,0.1);padding:0.3rem 0.7rem;border-radius:99px;">⏰ 2 Days</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.9rem 1rem;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:12px;border-left:3px solid #fbbf24;">
+            <div><p style="font-weight:600;font-size:0.9rem;">Global AI Hackathon</p><p style="font-size:0.78rem;color:#8b8b9e;">Devpost</p></div>
+            <span style="font-size:0.78rem;font-weight:700;color:#fbbf24;background:rgba(251,191,36,0.1);padding:0.3rem 0.7rem;border-radius:99px;">⏰ 5 Days</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.9rem 1rem;background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.15);border-radius:12px;border-left:3px solid #fbbf24;">
+            <div><p style="font-weight:600;font-size:0.9rem;">Microsoft Learn Ambassador</p><p style="font-size:0.78rem;color:#8b8b9e;">Microsoft</p></div>
+            <span style="font-size:0.78rem;font-weight:700;color:#fbbf24;background:rgba(251,191,36,0.1);padding:0.3rem 0.7rem;border-radius:99px;">⏰ 12 Days</span>
+          </div>
+        </div>
+        <p style="font-size:0.82rem;color:#8b8b9e;margin-top:1rem;text-align:center;">Save opportunities to get deadline alerts 🔔</p>
+      `);
+    }
+
+    function _showMySpaceModal(title, content) {
+      var existing = document.getElementById("myspace-modal");
+      if (existing) existing.remove();
+      var modal = document.createElement("div");
+      modal.id = "myspace-modal";
+      modal.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:3000;display:flex;justify-content:center;align-items:center;padding:1rem;";
+      modal.innerHTML =
+        '<div style="background:var(--glass);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:24px;width:100%;max-width:500px;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 70px rgba(0,0,0,0.5);">' +
+          '<div style="padding:1.3rem 1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">' +
+            '<h2 style="font-size:1.2rem;font-weight:800;">'+title+'</h2>' +
+            '<button onclick="document.getElementById(\'myspace-modal\').remove()" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);border-radius:50%;width:32px;height:32px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>' +
+          '</div>' +
+          '<div class="modal-body-content" style="padding:1.2rem 1.5rem;overflow-y:auto;flex:1;">'+content+'</div>' +
+        '</div>';
+      document.body.appendChild(modal);
+      modal.addEventListener("click", function(e){ if(e.target===modal) modal.remove(); });
+    }
+
+    function showAllNotifications() {
+      var existing = document.getElementById("all-notif-modal");
+      if (existing) existing.remove();
+      var allNotifs = [
+        { icon:"bx-time-five", color:"#f87171", title:"Google SWE Intern deadline in 2 days!", desc:"Do not miss the application deadline for Google STEP internship.", time:"Just now", dot:true, tag:"Deadline" },
+        { icon:"bx-trophy",    color:"#fbbf24", title:"New: ETHIndia 2025 Hackathon is live", desc:"Asia biggest Ethereum hackathon is now open for registrations.", time:"1 hour ago", dot:true, tag:"Hackathon" },
+        { icon:"bx-bookmark",  color:"#a78bfa", title:"Saved opportunity closes this week", desc:"Microsoft Scholarship for Women in STEM closes in 5 days.", time:"3 hours ago", dot:true, tag:"Saved" },
+        { icon:"bx-briefcase", color:"#60a5fa", title:"Netflix Frontend Intern — Apply now", desc:"New internship listing matching your React and JavaScript skills.", time:"5 hours ago", dot:false, tag:"Internship" },
+        { icon:"bx-bell",      color:"#34d399", title:"Profile updated — recommendations refreshed", desc:"Your personalized feed has been updated based on your new skills.", time:"Yesterday", dot:false, tag:"System" },
+        { icon:"bx-star",      color:"#fbbf24", title:"Smart India Hackathon 2025 is ongoing", desc:"Registration is open. Team size: 6. Prize: Rs 1,00,000.", time:"2 days ago", dot:false, tag:"Hackathon" },
+        { icon:"bx-graduation",color:"#a78bfa", title:"Google Generation Scholarship — Apply", desc:"Scholarship for underrepresented students. Deadline: Dec 1, 2025.", time:"3 days ago", dot:false, tag:"Scholarship" },
+        { icon:"bx-code-block",color:"#60a5fa", title:"New competition: ICPC Asia Regional 2025", desc:"Register your team of 3 for the world most prestigious CP contest.", time:"4 days ago", dot:false, tag:"Competition" },
+      ];
+      var tagColors = { "Deadline":"rgba(248,113,113,0.15);color:#f87171","Hackathon":"rgba(139,92,246,0.15);color:#a78bfa","Saved":"rgba(139,92,246,0.15);color:#a78bfa","Internship":"rgba(59,130,246,0.15);color:#60a5fa","System":"rgba(16,185,129,0.15);color:#34d399","Scholarship":"rgba(16,185,129,0.15);color:#34d399","Competition":"rgba(245,158,11,0.15);color:#fbbf24" };
+      var modal = document.createElement("div");
+      modal.id = "all-notif-modal";
+      modal.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);z-index:9999;display:flex;justify-content:center;align-items:center;padding:1rem;";
+      modal.innerHTML =
+        "<div style='background:#13121f;border:1px solid rgba(255,255,255,0.1);border-radius:24px;width:100%;max-width:580px;max-height:88vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 70px rgba(0,0,0,0.6);'>" +
+          "<div style='padding:1.3rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;'>" +
+            "<div><h2 style='font-size:1.2rem;font-weight:800;color:#f0f0f5;margin-bottom:2px;'>All Notifications</h2><p style='font-size:0.8rem;color:#8b8b9e;'>3 unread notifications</p></div>" +
+            "<button onclick=\"document.getElementById('all-notif-modal').remove()\" style='background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);color:#f0f0f5;border-radius:50%;width:32px;height:32px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;'>✕</button>" +
+          "</div>" +
+          "<div style='overflow-y:auto;flex:1;'>" +
+            allNotifs.map(function(n) {
+              return "<div style='padding:1rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;' onmouseover=\"this.style.background='rgba(255,255,255,0.04)'\" onmouseout=\"this.style.background=''\">" +
+                "<div style='width:42px;height:42px;border-radius:12px;background:rgba(139,92,246,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;'>" +
+                  "<i class='bx " + n.icon + "' style='color:" + n.color + ";font-size:1.2rem;'></i>" +
+                  (n.dot ? "<span style='position:absolute;top:2px;right:2px;width:8px;height:8px;background:#e50914;border-radius:50%;'></span>" : "") +
+                "</div>" +
+                "<div style='flex:1;min-width:0;'>" +
+                  "<div style='display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;margin-bottom:4px;'>" +
+                    "<p style='font-size:0.88rem;font-weight:600;color:#f0f0f5;line-height:1.3;'>" + n.title + "</p>" +
+                    "<span style='font-size:0.68rem;padding:0.15rem 0.55rem;border-radius:99px;white-space:nowrap;flex-shrink:0;background:" + (tagColors[n.tag]||"rgba(139,92,246,0.15);color:#a78bfa") + ";font-weight:600;'>" + n.tag + "</span>" +
+                  "</div>" +
+                  "<p style='font-size:0.8rem;color:#8b8b9e;margin-bottom:4px;line-height:1.4;'>" + n.desc + "</p>" +
+                  "<span style='font-size:0.73rem;color:#555568;'>" + n.time + "</span>" +
+                "</div>" +
+              "</div>";
+            }).join("") +
+          "</div>" +
+          "<div style='padding:1rem 1.5rem;border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;'>" +
+            "<span style='font-size:0.82rem;color:#8b8b9e;'>Showing all " + allNotifs.length + " notifications</span>" +
+            "<button onclick=\"document.getElementById('all-notif-modal').remove()\" style='background:linear-gradient(135deg,#8b5cf6,#3b82f6);color:#fff;border:none;padding:0.5rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:600;cursor:pointer;'>Done</button>" +
+          "</div>" +
+        "</div>";
+      document.body.appendChild(modal);
+      modal.addEventListener("click", function(e) { if (e.target === modal) modal.remove(); });
+    }
+  </script>
+  <script type="module" src="./main.js?v=3"></script>
+</body>
 </html>

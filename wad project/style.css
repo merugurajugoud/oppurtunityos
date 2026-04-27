@@ -524,12 +524,45 @@ body {
 .stat-info p  { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
 
 /* Discovery filters */
-.discovery-filters { margin-bottom: 2rem; }
-
-.trending-tags {
-  display: flex; align-items: center; flex-wrap: wrap;
-  gap: 0.6rem; margin-bottom: 1rem;
+.discovery-filters {
+  margin-bottom: 2rem;
+  display: flex; flex-direction: column; gap: 0.9rem;
 }
+
+.filter-tabs-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+.filter-tab {
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--text-muted); padding: 0.5rem 1.2rem;
+  border-radius: 99px; font-size: 0.88rem; font-weight: 500;
+  cursor: pointer; transition: all 0.2s; font-family: 'Outfit', sans-serif;
+}
+
+.filter-tab:hover { background: var(--bg-card-hover); color: var(--text-main); }
+
+.filter-tab.active {
+  background: var(--purple); color: #fff; border-color: var(--purple);
+  box-shadow: 0 4px 14px rgba(139,92,246,0.35);
+}
+
+/* Status sub-tabs */
+.status-tabs {
+  display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+}
+
+.status-tab {
+  background: var(--bg-card); border: 1px solid var(--border);
+  cursor: pointer; padding: 0.45rem 1.1rem; border-radius: 99px;
+  font-size: 0.85rem; font-weight: 600;
+  color: var(--text-muted); transition: all 0.2s;
+  font-family: 'Outfit', sans-serif;
+}
+
+.status-tab:hover { background: var(--bg-card-hover); color: var(--text-main); }
+
+.status-tab[data-status="Ongoing"].active  { background: rgba(16,185,129,0.15); color: #34d399; border-color: rgba(16,185,129,0.4); }
+.status-tab[data-status="Upcoming"].active { background: rgba(59,130,246,0.15); color: #60a5fa; border-color: rgba(59,130,246,0.4); }
+.status-tab[data-status="Closed"].active   { background: rgba(156,163,175,0.15); color: #9ca3af; border-color: rgba(156,163,175,0.3); }
 
 .tag-label {
   font-size: 0.82rem; font-weight: 600; color: var(--text-muted);
@@ -550,7 +583,7 @@ body {
   color: var(--text-main); transform: translateY(-1px);
 }
 
-.filter-tabs { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.filter-tabs-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 
 .filter-tab {
   background: var(--bg-card); border: 1px solid var(--border);
@@ -566,11 +599,43 @@ body {
   box-shadow: 0 4px 14px rgba(139,92,246,0.35);
 }
 
+/* Status sub-tabs */
+.status-tabs {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  width: fit-content;
+}
+
+.status-tab {
+  background: none; border: none; cursor: pointer;
+  padding: 0.45rem 1.1rem; border-radius: 99px;
+  font-size: 0.85rem; font-weight: 600;
+  color: var(--text-muted); transition: all 0.2s;
+  font-family: 'Outfit', sans-serif;
+}
+
+.status-tab:hover { background: var(--bg-card-hover); color: var(--text-main); }
+
+.status-tab.active {
+  background: var(--grad); color: #fff;
+  box-shadow: 0 3px 10px rgba(139,92,246,0.3);
+}
+
 /* Dashboard grid */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr 320px;
   gap: 2rem; align-items: start;
+}
+
+.dashboard-grid.full-width,
+.dashboard-grid:has(.deadlines-section[style*="display: none"]),
+.dashboard-grid:has(.deadlines-section[style*="display:none"]) {
+  grid-template-columns: 1fr;
 }
 
 .section-header {
@@ -589,7 +654,7 @@ body {
 /* Cards grid */
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.2rem;
 }
 
@@ -955,3 +1020,19 @@ body {
 .light-mode .nav-badge { background: #e5e7eb; }
 .light-mode .badge-new   { background: rgba(229,9,20,0.08)!important; }
 .light-mode .badge-green { background: rgba(16,185,129,0.1)!important; color: #059669!important; }
+
+/* Trending tags */
+.trending-tags {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* For You badge on cards */
+.for-you-badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  background: linear-gradient(135deg,rgba(139,92,246,0.2),rgba(59,130,246,0.2));
+  border: 1px solid rgba(139,92,246,0.4);
+  color: #a78bfa; font-size: 0.68rem; font-weight: 700;
+  padding: 0.15rem 0.55rem; border-radius: 99px;
+  margin-bottom: 4px;
+}
